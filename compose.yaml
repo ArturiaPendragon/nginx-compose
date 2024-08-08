@@ -1,0 +1,10 @@
+services:
+  nginx:
+    image: nginx:1.26.1
+    ports:
+      - "80:80"
+    networks:
+      - webnet
+
+networks:
+  webnet:
