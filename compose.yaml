@@ -2,8 +2,18 @@ services:
   nginx:
     image: nginx:1.26.1
     container_name: nginx_compose
+    restart: always
+    labels:
+      - traefik.enable=true
+      - providers.docker=true
+      - traefik.http.routers.nginx.rule=Host(`nginx.refrain.work`)
+      - traefik.http.routers.nginx.entrypoints=websecure
+      - traefik.http.routers.nginx.tls=true
+      - traefik.http.routers.nginx.service=nginx
+      - traefik.http.services.nginx.loadbalancer.server.port=80
     networks:
-      - webnet
+      - cf-frontend
 
 networks:
-  webnet:
+  cf-frontend:
+    external: true
